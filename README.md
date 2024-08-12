@@ -8,3 +8,9 @@ One way to simplify this process would be to run a script that calls netsh, whic
 However, we're aiming to build a Network Address Translation system from scratch because we find it challenging and want to understand how it works in depth. By doing so, we'll gain hands-on experience with network fundamentals and have better control over our setup
 
 Let's see if we can do so!!
+
+---
+
+### Docs
+
+- [RFC 6866 - Port forwarding protocol](https://datatracker.ietf.org/doc/html/rfc6886)
