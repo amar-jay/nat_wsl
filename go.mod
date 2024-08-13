@@ -1,9 +1,8 @@
 module github.com/amar-jay/nat_wsl
 
-go 1.22.3
+go 1.23
 
 require (
-	github.com/intel-go/nff-go v0.9.2
 	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/pkg/errors v0.8.1
 	github.com/urfave/cli/v2 v2.27.4
