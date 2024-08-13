@@ -1,0 +1,61 @@
+name: Go Build and Package
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build and Package Go Project
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "1.20" # Specify the version of Go you want to use
+
+      - name: Cache Go modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+
+      - name: Install dependencies
+        run: go mod download
+
+      - name: Build Go project
+        run: go build -v ./...
+
+      - name: Run tests
+        run: go test -v ./...
+
+      - name: Create release package
+        run: |
+          mkdir -p release
+          GOOS=linux GOARCH=amd64 go build -o release/nat_wsl-linux-amd64
+          GOOS=windows GOARCH=amd64 go build -o release/nat_wsl-windows-amd64.exe
+          GOOS=darwin GOARCH=amd64 go build -o release/nat_wsl-darwin-amd64
+
+      - name: Archive release package
+        run: |
+          tar -czvf release/nat_wsl-linux-amd64.tar.gz -C release nat_wsl-linux-amd64
+          tar -czvf release/nat_wsl-windows-amd64.tar.gz -C release nat_wsl-windows-amd64.exe
+          tar -czvf release/nat_wsl-darwin-amd64.tar.gz -C release nat_wsl-darwin-amd64
+
+      - name: Upload release artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: release-artifacts
+          path: release/*.tar.gz

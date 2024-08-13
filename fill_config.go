@@ -16,7 +16,7 @@ func fill_random_config() {
 	forwarded.Wsl.Listenport = 1234
 	forwarded.Protocol = "tcp"
 	forwarded.Type = "v4tov4"
-	forwarded.Wsl.Listenhost = "localhost"
+	forwarded.Wsl.Listenip = "localhost"
 	forwarded.Remote.Connectport = 1234
 	forwarded.Remote.Connectip = "localhost"
 

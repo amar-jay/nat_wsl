@@ -1,0 +1,19 @@
+- name: Create GitHub Release
+  id: create_release
+  uses: actions/create-release@v1
+  with:
+    tag_name: v1.0.0 # You can dynamically generate this or use existing tags
+    release_name: Release v1.0.0
+    body: "This is the release description."
+    draft: false
+    prerelease: false
+  env:
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+- name: Upload Release Asset
+  uses: actions/upload-release-asset@v1
+  with:
+    upload_url: ${{ steps.create_release.outputs.upload_url }}
+    asset_path: release/nat_wsl-linux-amd64.tar.gz
+    asset_name: nat_wsl-linux-amd64.tar.gz
+    asset_content_type: application/gzip
