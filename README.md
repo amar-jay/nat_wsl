@@ -14,3 +14,13 @@ Let's see if we can do so!!
 ### Docs
 
 - [RFC 6866 - Port forwarding protocol](https://datatracker.ietf.org/doc/html/rfc6886), [(pdf version)](https://www.rfc-editor.org/rfc/pdfrfc/rfc6886.txt.pdf)
+
+---
+
+## Takeaway
+
+I was able to build it! it works successfully -- At least on my PC. However, I came across something, Somehow, when I copy packet across- it passes through intermediate ports. I still don't know why. Also, Some packets don't successfully send on the first try.
+
+> > We still got a lot to learn!!
+
+And there is absolutely no way, I can implement the entire features that Netsh portproxy comes with. However, this is just a mini-version, and works just fine 😉.
