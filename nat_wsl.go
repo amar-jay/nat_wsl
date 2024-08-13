@@ -1,10 +1,12 @@
 package main
 
 import (
+	"io"
 	"log"
 	"os"
 
 	. "github.com/amar-jay/nat_wsl/pkg/config"
+	"github.com/amar-jay/nat_wsl/pkg/portmap"
 	"github.com/pkg/errors"
 	"github.com/urfave/cli/v2"
 	"gopkg.in/yaml.v3"
@@ -58,8 +60,15 @@ func main() {
 
 					yaml.Unmarshal(content, &config)
 					config.SetDefaults()
-					log.Printf("config: %+v", config)
+					pm, err := portmap.NewPortMaps(&config)
+					if err != nil {
+						log.Fatalln("port map initialization error!!")
+					}
 
+					log.Println("starting port mapping...")
+
+					pm.Start()
+					log.Println("started port mapping!!")
 					return nil
 				},
 			},
@@ -126,14 +135,21 @@ func main() {
 					portproxy.Type = cCtx.String("type")
 					portproxy.Wsl.Listenport = cCtx.Int("listenport")
 					portproxy.Remote.Connectport = cCtx.Int("connectport")
-					portproxy.Wsl.Listenhost = cCtx.String("listenhost")
+					portproxy.Wsl.Listenip = cCtx.String("listenhost")
 					portproxy.Remote.Connectip = cCtx.String("connecthost")
 
 					conf := Config{
 						"portproxy": portproxy,
 					}
-					log.Printf("config: %+v", conf)
+					pm, err := portmap.NewPortMaps(&conf)
+					if err != nil {
+						log.Fatalln("port map initialization error!!")
+					}
 
+					log.Println("starting port mapping...")
+
+					pm.Start()
+					log.Println("started port mapping!!")
 					return nil
 				},
 			},
@@ -146,7 +162,26 @@ func main() {
 		},
 	}
 
+	// --- logging ---
+	logFile, err := os.OpenFile("nat_wsl.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	if err != nil {
+		log.Fatalln("Failed to open log file")
+		return
+	}
+	defer logFile.Close()
+
+	// create multiwriter to log to both stdoutput and file
+	multiWriter := io.MultiWriter(os.Stdout, logFile)
+
+	log.SetOutput(multiWriter)
+
+	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
+	//--- ---
+
 	if err := app.Run(os.Args); err != nil {
 		log.Fatal(err)
 	}
+}
+
+func init() {
 }

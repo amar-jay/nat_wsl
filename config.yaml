@@ -1,18 +1,18 @@
 onestop:
-    protocol: tcp
-    type: v4tov4
-    wsl:
-        listenport: 1234
-        listenhost: localhost
-    remote:
-        connectport: 1234
-        connectip: localhost
+  protocol: tcp
+  type: v4tov4
+  wsl:
+    listenport: 1234
+    listenhost: localhost
+  remote:
+    connectport: 1234
+    connectip: 0.0.0.0
 waaguan:
-    protocol: tcp
-    type: v4tov4
-    wsl:
-        listenport: 1234
-        listenhost: localhost
-    remote:
-        connectport: 1234
-        connectip: localhost
+  protocol: tcp
+  type: v4tov4
+  wsl:
+    listenport: 5173
+    listenhost: localhost
+  remote:
+    connectport: 3000
+    connectip: 0.0.0.0

@@ -13,4 +13,4 @@ Let's see if we can do so!!
 
 ### Docs
 
-- [RFC 6866 - Port forwarding protocol](https://datatracker.ietf.org/doc/html/rfc6886)
+- [RFC 6866 - Port forwarding protocol](https://datatracker.ietf.org/doc/html/rfc6886), [(pdf version)](https://www.rfc-editor.org/rfc/pdfrfc/rfc6886.txt.pdf)

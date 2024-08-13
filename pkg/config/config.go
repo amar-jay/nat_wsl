@@ -7,7 +7,7 @@ type Forwarding struct {
 	Type     string `yaml:",omitempty"` // default:"v4tov4"
 	Wsl      struct {
 		Listenport int
-		Listenhost string
+		Listenip   string
 	}
 	Remote struct {
 		Connectport int
