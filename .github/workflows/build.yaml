@@ -61,41 +61,6 @@ jobs:
         with:
           name: release-artifacts
           path: release/*.tar.gz
-
-      - name: Create GitHub Release
-        id: create_release
-        uses: actions/create-release@v1
-        with:
-          tag_name: v1.0.0 # You can dynamically generate this or use existing tags
-          release_name: Release v1.0.0
-          body: "NAT WSL first release 🥳"
-          draft: false
-          prerelease: false
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-
-      - name: Upload Linux Asset
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: release/nat_wsl-linux-amd64.tar.gz
-          asset_name: nat_wsl-linux-amd64.tar.gz
-          asset_content_type: application/gzip
-
-      - name: Upload macOS (AMD) Asset
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{steps.create_release.outputs.upload_url}}
-          asset_path: release/nat_wsl-darwin-amd64.tar.gz
-          asset_name: nat_wsl-darwin-amd64.tar.gz
-          asset_content_type: application/gzip
-
-      - name: Upload Windows Asset
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{steps.create_release.outputs.upload_url}}
-          asset_path: release/nat_wsl-windows-amd64.zip
-          asset_name: nat_wsl-windows-amd64.zip
           asset_content_type: application/zip
 
       - name: Upload macOS (ARM silicon) Asset
