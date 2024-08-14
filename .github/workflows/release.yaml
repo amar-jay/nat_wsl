@@ -4,7 +4,7 @@
   with:
     tag_name: v1.0.0 # You can dynamically generate this or use existing tags
     release_name: Release v1.0.0
-    body: "This is the release description."
+    body: "NAT WSL first release 🥳"
     draft: false
     prerelease: false
   env:
